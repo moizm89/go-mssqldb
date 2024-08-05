@@ -162,8 +162,12 @@ func (s *Stmt) makeParamExtra(val driver.Value) (res param, err error) {
 		res.ti.Size = 0 // currently zero forces nvarchar(max)
 	case NChar:
 		res.ti.TypeId = typeNChar
-		res.buffer = str2ucs2(string(val))
-		res.ti.Size = 50
+		value := string(val)
+		if len(value) < 50 {
+			value = fmt.Sprintf("%-50s", value)
+		}
+		res.buffer = str2ucs2(value)
+		res.ti.Size = len(value)
 	case DateTime1:
 		t := time.Time(val)
 		res.ti.TypeId = typeDateTimeN
