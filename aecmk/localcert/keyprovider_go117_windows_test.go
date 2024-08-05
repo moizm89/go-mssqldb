@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/microsoft/go-mssqldb/aecmk"
-	"github.com/microsoft/go-mssqldb/internal/certs"
+	"github.com/moizm89/go-mssqldb/aecmk"
+	"github.com/moizm89/go-mssqldb/internal/certs"
 )
 
 func TestLoadWindowsCertStoreCertificate(t *testing.T) {

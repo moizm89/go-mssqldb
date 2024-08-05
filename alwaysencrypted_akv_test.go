@@ -8,9 +8,9 @@ import (
 
 	"github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azkeys"
 
-	"github.com/microsoft/go-mssqldb/aecmk"
-	"github.com/microsoft/go-mssqldb/aecmk/akv"
-	"github.com/microsoft/go-mssqldb/internal/akvkeys"
+	"github.com/moizm89/go-mssqldb/aecmk"
+	"github.com/moizm89/go-mssqldb/aecmk/akv"
+	"github.com/moizm89/go-mssqldb/internal/akvkeys"
 	"github.com/stretchr/testify/assert"
 )
 
