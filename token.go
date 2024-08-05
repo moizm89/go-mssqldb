@@ -11,7 +11,7 @@ import (
 	"strconv"
 
 	"github.com/golang-sql/sqlexp"
-	"github.com/microsoft/go-mssqldb/msdsn"
+	"github.com/moizm89/go-mssqldb/msdsn"
 	"golang.org/x/text/encoding/unicode"
 )
 

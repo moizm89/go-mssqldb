@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/microsoft/go-mssqldb/msdsn"
-	_ "github.com/microsoft/go-mssqldb/namedpipe"
+	"github.com/moizm89/go-mssqldb/msdsn"
+	_ "github.com/moizm89/go-mssqldb/namedpipe"
 )
 
 func TestNamedPipeProtocolInstalled(t *testing.T) {
