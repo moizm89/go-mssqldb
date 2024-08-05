@@ -9,7 +9,7 @@ import (
 	"testing"
 
 	"github.com/microsoft/go-mssqldb/aecmk"
-	"github.com/microsoft/go-mssqldb/internal/akvkeys"
+	"github.com/moizm89/go-mssqldb/internal/akvkeys"
 	"github.com/stretchr/testify/assert"
 )
 

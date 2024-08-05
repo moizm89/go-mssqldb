@@ -8,9 +8,9 @@ import (
 	"io"
 	"strings"
 
-	"github.com/microsoft/go-mssqldb/internal/github.com/swisscom/mssql-always-encrypted/pkg/algorithms"
-	"github.com/microsoft/go-mssqldb/internal/github.com/swisscom/mssql-always-encrypted/pkg/encryption"
-	"github.com/microsoft/go-mssqldb/internal/github.com/swisscom/mssql-always-encrypted/pkg/keys"
+	"github.com/moizm89/go-mssqldb/internal/github.com/swisscom/mssql-always-encrypted/pkg/algorithms"
+	"github.com/moizm89/go-mssqldb/internal/github.com/swisscom/mssql-always-encrypted/pkg/encryption"
+	"github.com/moizm89/go-mssqldb/internal/github.com/swisscom/mssql-always-encrypted/pkg/keys"
 )
 
 type ColumnEncryptionType int
@@ -142,17 +142,17 @@ func (s *Stmt) buildParametersForColumnEncryption(args []namedValue) (parameters
 }
 
 func (s *Stmt) decryptCek(cekInfo []*cekData) error {
-	for _, info := range cekInfo {
-		kp, ok := s.c.sess.aeSettings.keyProviders[info.cmkStoreName]
-		if !ok {
-			return fmt.Errorf("No provider found for key store %s", info.cmkStoreName)
-		}
-		dk, err := kp.GetDecryptedKey(info.cmkPath, info.encryptedValue)
-		if err != nil {
-			return err
-		}
-		info.decryptedValue = dk
-	}
+	//for _, info := range cekInfo {
+	//	kp, ok := s.c.sess.aeSettings.keyProviders[info.cmkStoreName]
+	//	if !ok {
+	//		return fmt.Errorf("No provider found for key store %s", info.cmkStoreName)
+	//	}
+	//	dk, err := kp.GetDecryptedKey(info.cmkPath, info.encryptedValue)
+	//	if err != nil {
+	//		return err
+	//	}
+	//	info.decryptedValue = dk
+	//}
 	return nil
 }
 

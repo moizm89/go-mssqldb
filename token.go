@@ -11,9 +11,6 @@ import (
 	"strconv"
 
 	"github.com/golang-sql/sqlexp"
-	"github.com/microsoft/go-mssqldb/internal/github.com/swisscom/mssql-always-encrypted/pkg/algorithms"
-	"github.com/microsoft/go-mssqldb/internal/github.com/swisscom/mssql-always-encrypted/pkg/encryption"
-	"github.com/microsoft/go-mssqldb/internal/github.com/swisscom/mssql-always-encrypted/pkg/keys"
 	"github.com/microsoft/go-mssqldb/msdsn"
 	"golang.org/x/text/encoding/unicode"
 )
@@ -819,39 +816,39 @@ func (R RWCBuffer) Close() error {
 }
 
 func decryptColumn(column columnStruct, s *tdsSession, columnContent interface{}) tdsBuffer {
-	encType := encryption.From(column.cryptoMeta.encType)
-	cekValue := column.cryptoMeta.entry.cekValues[column.cryptoMeta.ordinal]
-	if (s.logFlags & uint64(msdsn.LogDebug)) == uint64(msdsn.LogDebug) {
-		s.logger.Log(context.Background(), msdsn.LogDebug, fmt.Sprintf("Decrypting column %s. Key path: %s, Key store:%s, Algo: %s", column.ColName, cekValue.keyPath, cekValue.keyStoreName, cekValue.algorithmName))
-	}
-
-	cekProvider, ok := s.aeSettings.keyProviders[cekValue.keyStoreName]
-	if !ok {
-		panic(fmt.Errorf("Unable to find provider %s to decrypt CEK", cekValue.keyStoreName))
-	}
-	cek, err := cekProvider.GetDecryptedKey(cekValue.keyPath, column.cryptoMeta.entry.cekValues[0].encryptedKey)
-	if err != nil {
-		panic(err)
-	}
-	k := keys.NewAeadAes256CbcHmac256(cek)
-	alg := algorithms.NewAeadAes256CbcHmac256Algorithm(k, encType, byte(cekValue.cekVersion))
-	d, err := alg.Decrypt(columnContent.([]byte))
-	if err != nil {
-		panic(err)
-	}
-
-	// Decrypt returns a minimum of 8 bytes so truncate to the actual data size
-	if column.cryptoMeta.typeInfo.Size > 0 && column.cryptoMeta.typeInfo.Size < len(d) {
-		d = d[:column.cryptoMeta.typeInfo.Size]
-	}
+	//encType := encryption.From(column.cryptoMeta.encType)
+	//cekValue := column.cryptoMeta.entry.cekValues[column.cryptoMeta.ordinal]
+	//if (s.logFlags & uint64(msdsn.LogDebug)) == uint64(msdsn.LogDebug) {
+	//	s.logger.Log(context.Background(), msdsn.LogDebug, fmt.Sprintf("Decrypting column %s. Key path: %s, Key store:%s, Algo: %s", column.ColName, cekValue.keyPath, cekValue.keyStoreName, cekValue.algorithmName))
+	//}
+	//
+	//cekProvider, ok := s.aeSettings.keyProviders[cekValue.keyStoreName]
+	//if !ok {
+	//	panic(fmt.Errorf("Unable to find provider %s to decrypt CEK", cekValue.keyStoreName))
+	//}
+	//cek, err := cekProvider.GetDecryptedKey(cekValue.keyPath, column.cryptoMeta.entry.cekValues[0].encryptedKey)
+	//if err != nil {
+	//	panic(err)
+	//}
+	//k := keys.NewAeadAes256CbcHmac256(cek)
+	//alg := algorithms.NewAeadAes256CbcHmac256Algorithm(k, encType, byte(cekValue.cekVersion))
+	//d, err := alg.Decrypt(columnContent.([]byte))
+	//if err != nil {
+	//	panic(err)
+	//}
+	//
+	//// Decrypt returns a minimum of 8 bytes so truncate to the actual data size
+	//if column.cryptoMeta.typeInfo.Size > 0 && column.cryptoMeta.typeInfo.Size < len(d) {
+	//	d = d[:column.cryptoMeta.typeInfo.Size]
+	//}
 	var newBuff []byte
-	newBuff = append(newBuff, d...)
+	//newBuff = append(newBuff, d...)
 
 	rwc := RWCBuffer{
 		buffer: bytes.NewReader(newBuff),
 	}
 
-	column.cryptoMeta.typeInfo.Buffer = d
+	//column.cryptoMeta.typeInfo.Buffer = d
 	buffer := tdsBuffer{rpos: 0, rsize: len(newBuff), rbuf: newBuff, transport: rwc}
 	return buffer
 }
