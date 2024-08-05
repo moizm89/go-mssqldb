@@ -149,7 +149,7 @@ func (s *Stmt) makeParamExtra(val driver.Value) (res param, err error) {
 	case VarChar:
 		res.ti.TypeId = typeBigVarChar
 		res.buffer = []byte(val)
-		res.ti.Size = len(res.buffer)
+		res.ti.Size = 50
 	case VarCharMax:
 		res.ti.TypeId = typeBigVarChar
 		res.buffer = []byte(val)
@@ -161,7 +161,7 @@ func (s *Stmt) makeParamExtra(val driver.Value) (res param, err error) {
 	case NChar:
 		res.ti.TypeId = typeNChar
 		res.buffer = str2ucs2(string(val))
-		res.ti.Size = len(res.buffer)
+		res.ti.Size = 50
 	case DateTime1:
 		t := time.Time(val)
 		res.ti.TypeId = typeDateTimeN
