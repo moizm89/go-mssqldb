@@ -11,7 +11,7 @@ import (
 	"os"
 	"testing"
 
-	mssql "github.com/microsoft/go-mssqldb"
+	mssql "github.com/moizm89/go-mssqldb"
 	"github.com/stretchr/testify/assert"
 )
 
