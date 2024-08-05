@@ -146,8 +146,12 @@ func (s *Stmt) makeParamExtra(val driver.Value) (res param, err error) {
 	switch val := val.(type) {
 	case VarChar:
 		res.ti.TypeId = typeBigVarChar
-		res.buffer = []byte(val)
-		res.ti.Size = 50
+		value := string(val)
+		if len(value) < 50 {
+			value = fmt.Sprintf("%-50s", value)
+		}
+		res.buffer = []byte(value)
+		res.ti.Size = len(value)
 	case VarCharMax:
 		res.ti.TypeId = typeBigVarChar
 		res.buffer = []byte(val)

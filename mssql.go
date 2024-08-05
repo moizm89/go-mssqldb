@@ -971,7 +971,7 @@ func (r *Rows) ColumnTypeNullable(index int) (nullable, ok bool) {
 func makeStrParam(val string) (res param) {
 	res.ti.TypeId = typeNVarChar
 	res.buffer = str2ucs2(val)
-	res.ti.Size = 50
+	res.ti.Size = len(res.buffer)
 	return
 }
 
