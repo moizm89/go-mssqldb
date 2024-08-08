@@ -970,12 +970,8 @@ func (r *Rows) ColumnTypeNullable(index int) (nullable, ok bool) {
 
 func makeStrParam(val string) (res param) {
 	res.ti.TypeId = typeNVarChar
-	value := string(val)
-	if len(value) < 50 {
-		value = fmt.Sprintf("%-50s", value)
-	}
-	res.buffer = str2ucs2(value)
-	res.ti.Size = len(res.buffer)
+	res.buffer = str2ucs2(val)
+	res.ti.Size = 4000
 	return
 }
 
