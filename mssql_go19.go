@@ -147,7 +147,7 @@ func (s *Stmt) makeParamExtra(val driver.Value) (res param, err error) {
 	case VarChar:
 		res.ti.TypeId = typeBigVarChar
 		res.buffer = []byte(val)
-		res.ti.Size = len(res.buffer)
+		res.ti.Size = 0 // currently zero forces varchar(max)
 	case VarCharMax:
 		res.ti.TypeId = typeBigVarChar
 		res.buffer = []byte(val)
