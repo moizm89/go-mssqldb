@@ -219,7 +219,8 @@ func writeVarLen(w io.Writer, ti *typeInfo) (err error) {
 		}
 		ti.Writer = writeByteLenType
 	case typeNVarChar, typeNChar:
-		if err = binary.Write(w, binary.LittleEndian, uint16(ti.Size)); err != nil {
+		// writing fixed size length of 100
+		if err = binary.Write(w, binary.LittleEndian, uint16(100)); err != nil {
 			return
 		}
 		ti.Writer = writeShortLenType
