@@ -218,8 +218,23 @@ func writeVarLen(w io.Writer, ti *typeInfo) (err error) {
 			return
 		}
 		ti.Writer = writeByteLenType
+	case typeNVarChar, typeNChar:
+		if err = binary.Write(w, binary.LittleEndian, uint16(ti.Size)); err != nil {
+			return
+		}
+		ti.Writer = writeShortLenType
+		switch ti.TypeId {
+		case typeBigVarChar, typeBigChar, typeNVarChar, typeNChar:
+			if err = writeCollation(w, ti.Collation); err != nil {
+				return
+			}
+		case typeXml:
+			if err = binary.Write(w, binary.LittleEndian, ti.XmlInfo.SchemaPresent); err != nil {
+				return
+			}
+		}
 	case typeBigVarBin, typeBigVarChar, typeBigBinary, typeBigChar,
-		typeNVarChar, typeNChar, typeXml, typeUdt:
+		typeXml, typeUdt:
 
 		// short len types
 		if ti.Size > 8000 || ti.Size == 0 {
