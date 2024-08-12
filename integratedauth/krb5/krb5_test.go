@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/microsoft/go-mssqldb/msdsn"
+	"github.com/moizm89/go-mssqldb/msdsn"
 )
 
 func TestReadKrb5ConfigHappyPath(t *testing.T) {

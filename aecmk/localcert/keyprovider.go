@@ -17,8 +17,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/microsoft/go-mssqldb/aecmk"
-	ae "github.com/microsoft/go-mssqldb/internal/github.com/swisscom/mssql-always-encrypted/pkg"
+	"github.com/moizm89/go-mssqldb/aecmk"
+	ae "github.com/moizm89/go-mssqldb/internal/github.com/swisscom/mssql-always-encrypted/pkg"
 	pkcs "golang.org/x/crypto/pkcs12"
 	"golang.org/x/text/encoding/unicode"
 )
